@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\UpdateUserController;
+use App\Http\Controllers\UserInfoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,11 +25,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('register',[UserController::class,'register']);
-Route::get('cariuser/{id}',[userController::class,'cariuser']);
-Route::put('updateuser/{id}',[UserController::class,'updateuser']);
-Route::delete('deleteuser/{id}',[UserController::class,'deleteuser']);
-Route::get('listuser',[UserController::class,'listuser']);
 Route::post('login',[UserController::class,'login']);
+Route::get('cariuser/{id}',[UserInfoController::class,'cariuser']);
+Route::put('updateuser/{id}',[UpdateUserController::class,'updateuser']);
+Route::delete('deleteuser/{id}',[UserController::class,'deleteuser']);
+
+
+Route::get('listuser',[UserController::class,'listuser']);
+
+// Route::post('login', [LoginController::class, 'login']);
+
 
 Route::post('tambahProduk',[ProductController::class,'tambahProduk']);
 Route::get('list',[ProductController::class,'list']);

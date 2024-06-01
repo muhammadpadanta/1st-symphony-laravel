@@ -73,5 +73,6 @@ return [
         public_path('product') => base_path('storage/app/product'),
         public_path('kategori') => base_path('storage/app/kategori'),
         public_path('userpfp') => base_path('storage/app/userpfp'),
+        public_path('userpfps') => base_path('storage/app/userpfps'),
     ],
 ];
