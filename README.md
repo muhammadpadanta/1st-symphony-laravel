@@ -3,7 +3,7 @@
 1. **Clone the Project**: Start by cloning the project from your friend's GitHub repository to your local machine.
 
    ```bash
-   git clone https://github.com/muhammadpadanta/p5_proweb.git
+  git clone https://github.com/muhammadpadanta/p5_proweb.git](https://github.com/muhammadpadanta/1st_symphony_laravel.git
    ```
 
 2. **Navigate to the project directory**
