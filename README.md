@@ -3,12 +3,12 @@
 1. **Clone the Project**: Start by cloning the project from your friend's GitHub repository to your local machine.
 
    ```bash
-  git clone https://github.com/muhammadpadanta/p5_proweb.git](https://github.com/muhammadpadanta/1st_symphony_laravel.git
+   git clone https://github.com/muhammadpadanta/1st_symphony_laravel.git
    ```
 
 2. **Navigate to the project directory**
    ```bash
-   cd p5_proweb
+   cd 1st_symphony_laravel
 
 3. **Install Composer Dependencies**: Navigate to the newly cloned project directory and install Composer dependencies.
 
