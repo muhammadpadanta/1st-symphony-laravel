@@ -21,7 +21,14 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
     ];
+
+    protected $routeMiddleware = [
+        // Other middleware
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+    ];
+
 
     /**
      * The application's route middleware groups.
@@ -48,7 +55,7 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-        
+
     ];
 
     /**

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artist;
+use App\Models\Concert;
+use App\Models\ConcertTicket;
+use App\Models\TicketType;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
@@ -13,52 +17,35 @@ use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
 
-
-// Register function
-    public function register(UserRequest $request)
-    {
-        $validatedData = $request->validated();
-
-        // Handle file upload if a file is provided
-        if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('userpfp');
-            $validatedData['file_path'] = $filePath;
-        }
-
-        // Hash the password
-        $validatedData['password'] = Hash::make($validatedData['password']);
-
-        // Create the user
-        $user = User::create($validatedData);
-
-        // Return a custom response with the created user
-        return response()->json([
-            'message' => 'User registered successfully',
-            'user' => $user,
-        ], 201);
-    }
-
-
-// Login function
-public function login(Request $req)
-{
-
-    $user = User::where('username', $req->input('username'))->first();
-
-    if ($user && Hash::check($req->input('password'), $user->password)) {
-        return ["id" =>"$user->user_id", "username" => $user->username];
-    }
-
-
-    return response()->json(['error' => 'These credentials do not match our records.'], 401);
-}
-
-
-
 function listuser()
 {
     return user::all();
 }
+
+    public function getAllArtists()
+    {
+        $artists = Artist::with('concerts')->get();
+        return response()->json($artists);
+    }
+
+    public function getAllConcerts()
+    {
+        $concerts = Concert::with(['artist', 'ticketTypes.concertTickets'])->get();
+
+        return response()->json($concerts);
+    }
+
+    public function getAllTicketTypes()
+    {
+        $ticketTypes = TicketType::all();
+        return response()->json($ticketTypes);
+    }
+
+    public function getAllConcertTickets()
+    {
+        $concertTickets = ConcertTicket::all();
+        return response()->json($concertTickets);
+    }
 
 // Delete user based on user_id
 function deleteuser($user_id)

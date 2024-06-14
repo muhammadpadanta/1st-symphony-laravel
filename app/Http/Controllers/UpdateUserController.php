@@ -40,6 +40,6 @@ class UpdateUserController extends Controller
 
         $user->fill($data)->save();
 
-        return $user->toArray();
+        return response()->json(['message' => 'Data updated successfully']);
     }
 }

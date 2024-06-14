@@ -16,6 +16,14 @@ class UserRequest extends FormRequest
         return true;
     }
 
+    public function messages()
+    {
+        return [
+            'username.regex' => 'The username should not contain any spaces.',
+            // other custom messages...
+        ];
+    }
+
     // The rules method returns an array of validation rules that this request should adhere to. Each rule is defined as a key-value pair, where the key is the name of the field and the value is the validation rule.
     public function rules()
     {
