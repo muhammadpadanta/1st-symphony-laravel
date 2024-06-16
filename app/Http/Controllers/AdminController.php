@@ -24,6 +24,7 @@ class AdminController extends Controller
     public function getAllUsers()
     {
         $users = User::all();
+        $users->load('orders.orderTickets.concertTicket.ticketType');
         return response()->json($users);
     }
 

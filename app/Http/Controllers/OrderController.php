@@ -18,7 +18,7 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the request
+
         $request->validate([
             'concert_ticket_id' => 'required|integer|exists:concert_tickets,concert_ticket_id',
             'quantity' => 'required|integer|min:1',
@@ -79,6 +79,8 @@ class OrderController extends Controller
         return response()->json(['message' => 'Order created successfully', 'order' => $order], 201);
     }
 
+
+
     public function success(Request $request)
     {
         $orderId = $request->input('order_id');
@@ -91,7 +93,6 @@ class OrderController extends Controller
         $order->purchase_status = 'Success';
         $order->save();
 
-        // Update total_stock and sold_tickets in concert_tickets table
         foreach ($order->orderTickets as $orderTicket) {
             $concertTicket = ConcertTicket::find($orderTicket->concert_ticket_id);
             $concertTicket->total_stock -= $orderTicket->quantity;
