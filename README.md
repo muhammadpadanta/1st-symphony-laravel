@@ -23,7 +23,16 @@
    composer update
    ```
 
-5. **Launch The App**
+5. **Removing Old Public Folder and making new Storage Link**
+   
+    ```bash
+    rm public/userpfps
+    rm public/artistphoto
+    rm public/concertphoto
+    php artisan storage:link
+    ```
+
+6. **Launch The App**
    ```bash
    php artisan serve
    ```
