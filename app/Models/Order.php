@@ -27,6 +27,11 @@ class Order extends Model
         return $this->hasMany('App\Models\OrderTicket', 'order_id');
     }
 
+    public function userTicket()
+    {
+        return $this->hasMany('App\Models\UserTicket', 'order_id');
+    }
+
     public $primaryKey = 'order_id';
 
     public $timestamps = false;

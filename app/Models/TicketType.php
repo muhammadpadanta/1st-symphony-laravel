@@ -19,6 +19,10 @@ class TicketType extends Model
     {
         return $this->hasMany(ConcertTicket::class, 'ticket_type_id', 'ticket_type_id');
     }
+    public function concert()
+    {
+        return $this->belongsTo(Concert::class, 'concert_id');
+    }
 
 
     protected $primaryKey = 'ticket_type_id';

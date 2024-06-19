@@ -31,7 +31,8 @@ Route::post('/verify', [AuthController::class, 'verify'])->name('verification.ve
 Route::post('password/email', [ResetPasswordController::class, 'sendResetLinkEmail']);
 Route::post('password/reset', [ResetPasswordController::class, 'resetPassword']);
 Route::post('orders', [OrderController::class, 'store'])->middleware(['auth:sanctum']);
-
+Route::post('orders/cancel', [OrderController::class, 'cancel'])->middleware(['auth:sanctum']);
+Route::post('orders/check-stock', [OrderController::class, 'checkStock'])->middleware(['auth:sanctum']);
 
 Route::get('/artists', [UserController::class, 'getAllArtists']);
 Route::get('/concerts', [UserController::class, 'getAllConcerts']);

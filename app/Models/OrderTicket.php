@@ -17,7 +17,7 @@ class OrderTicket extends Model
 
     public function concertTicket()
     {
-        return $this->belongsTo('App\Models\ConcertTicket', 'concert_ticket_id');
+        return $this->belongsTo('App\Models\ConcertTicket', 'concert_ticket_id')->with('ticketType');
     }
 
     public $timestamps = false;

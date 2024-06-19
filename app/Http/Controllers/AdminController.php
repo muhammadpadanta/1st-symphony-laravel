@@ -375,7 +375,7 @@ class AdminController extends Controller
     // CRUD ORDERS
     public function getAllOrders()
     {
-        $orders = Order::with('orderTickets.concertTicket.ticketType')->get();
+        $orders = Order::with('orderTickets.concertTicket.ticketType.concert')->get();
 
         return response()->json(['orders' => $orders], 200);
     }

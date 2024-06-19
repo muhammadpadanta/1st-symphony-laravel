@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderTicket;
 use App\Models\ConcertTicket;
+use App\Models\UserTicket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
+use Milon\Barcode\Facades\DNS1D;
+use GuzzleHttp\Client;
 
 class OrderController extends Controller
 {
@@ -79,12 +83,10 @@ class OrderController extends Controller
         return response()->json(['message' => 'Order created successfully', 'order' => $order], 201);
     }
 
-
-
     public function success(Request $request)
     {
         $orderId = $request->input('order_id');
-        $order = Order::find($orderId);
+        $order = Order::with('orderTickets.concertTicket.ticketType.concert')->find($orderId);
 
         if (!$order) {
             return response()->json(['message' => 'Order not found'], 404);
@@ -99,7 +101,54 @@ class OrderController extends Controller
             $concertTicket->sold_tickets += $orderTicket->quantity;
             $concertTicket->save();
         }
+        $orderTickets = $order->orderTickets;
+
+        $pdf = PDF::loadView('tickets.pdf', ['order' => $order, 'concertTicket' => $order->orderTickets->first()->concertTicket]);
+        $pdf->setPaper([0, 0, 300, 600], 'landscape');
+
+
+        $pdfPath = 'tickets/ticket_' . $order->order_id . '.pdf';
+        \Storage::put('public/' . $pdfPath, $pdf->output());
+
+
+        $userTicket = new UserTicket;
+        $userTicket->order_id = $order->order_id;
+        $userTicket->ticket_link = 'storage/' . $pdfPath;
+        $userTicket->created_at = now();
+        $userTicket->save();
 
         return response()->json(['message' => 'Payment success', 'order' => $order], 200);
+    }
+
+    public function cancel(Request $request)
+    {
+        $orderId = $request->input('order_id');
+        $order = Order::find($orderId);
+
+        if (!$order) {
+            return response()->json(['message' => 'Order not found'], 404);
+        }
+
+        $order->delete();
+
+        return response()->json(['message' => 'Order deleted successfully'], 200);
+    }
+
+    public function checkStock(Request $request)
+    {
+        $concertTicketId = $request->input('concert_ticket_id');
+        $quantity = $request->input('quantity');
+
+        $concertTicket = ConcertTicket::find($concertTicketId);
+
+        if (!$concertTicket) {
+            return response()->json(['message' => 'Ticket not found'], 404);
+        }
+
+        if ($concertTicket->total_stock < $quantity) {
+            return response()->json(['message' => 'Insufficient stock'], 400);
+        }
+
+        return response()->json(['message' => 'Stock is sufficient'], 200);
     }
 }

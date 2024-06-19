@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('/orders', 'App\Http\Controllers\OrderController@index');
+

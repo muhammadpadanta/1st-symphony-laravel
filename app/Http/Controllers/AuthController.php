@@ -53,7 +53,7 @@ class AuthController extends Controller
     public function me(Request $req)
     {
         $user = Auth::User();
-        $user->load('orders.orderTickets.concertTicket.ticketType');
+        $user->load('orders.userTicket', 'orders.orderTickets.concertTicket.ticketType');
 
         return response()->json($user);
     }
