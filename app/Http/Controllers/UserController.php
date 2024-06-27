@@ -24,8 +24,19 @@ function listuser()
 
     public function getAllArtists()
     {
-        $artists = Artist::with('concerts')->get();
+        $artists = Artist::with('concerts', 'songs')->get();
         return response()->json($artists);
+    }
+
+    public function getArtistById($id)
+    {
+        $artist = Artist::with('concerts', 'songs')->find($id);
+
+        if (!$artist) {
+            return response()->json(['message' => 'Artist not found'], 404);
+        }
+
+        return response()->json($artist);
     }
 
     public function getAllConcerts()

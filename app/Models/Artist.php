@@ -15,6 +15,11 @@ class Artist extends Model
         'bio',
     ];
 
+    public function songs()
+    {
+        return $this->hasMany(Song::class, 'artist_id', 'artist_id');
+    }
+
     public function concerts()
     {
         return $this->hasMany(Concert::class, 'artist_id', 'artist_id');

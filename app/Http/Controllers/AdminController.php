@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Artist;
 use App\Models\Concert;
 use App\Models\User;
+use App\Models\Song;
 use App\Models\ConcertTicket;
 use App\Models\TicketType;
 use Illuminate\Support\Facades\Hash;
@@ -381,5 +382,55 @@ class AdminController extends Controller
     }
 
     // CRUD ORDERS
+
+    // CRUD SONGS
+    public function createSong(Request $request)
+    {
+        $request->validate([
+            'artist_id' => 'required|integer|exists:artists,artist_id',
+            'title' => 'required|string|max:255',
+            'link_id' => 'required|string|max:255',
+        ]);
+
+        $song = Song::create($request->all());
+
+        return response()->json([
+            'message' => 'Song created successfully',
+            'song' => $song,
+        ], 201);
+    }
+
+    public function deleteSong($id)
+    {
+        $song = Song::findOrFail($id);
+        $song->delete();
+
+        return response()->json(['message' => 'Song with id ' . $id . ' successfully deleted'], 200);
+    }
+
+    public function getAllSongs()
+    {
+        $songs = Song::with('artist')->get();
+        return response()->json($songs);
+    }
+
+
+    public function updateSong(Request $request, $id)
+    {
+        $request->validate([
+            'artist_id' => 'integer|exists:artists,artist_id',
+            'title' => 'string|max:255',
+            'link_id' => 'string|max:255',
+        ]);
+
+        $song = Song::findOrFail($id);
+        $song->update($request->all());
+
+        return response()->json([
+            'message' => 'Song updated successfully',
+            'song' => $song,
+        ], 200);
+    }
+// CRUD SONGS
 
 }

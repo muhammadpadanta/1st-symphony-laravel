@@ -35,6 +35,7 @@ Route::post('orders/cancel', [OrderController::class, 'cancel'])->middleware(['a
 Route::post('orders/check-stock', [OrderController::class, 'checkStock'])->middleware(['auth:sanctum']);
 
 Route::get('/artists', [UserController::class, 'getAllArtists']);
+Route::get('/artists/{id}', [UserController::class, 'getArtistById']);
 Route::get('/concerts', [UserController::class, 'getAllConcerts']);
 Route::get('/ticket_types', [UserController::class, 'getAllTicketTypes']);
 Route::get('/concert_tickets', [UserController::class, 'getAllConcertTickets']);
@@ -87,6 +88,12 @@ Route::post('/order/success', 'App\Http\Controllers\OrderController@success')->m
         Route::get('/admin/concert_tickets/{id}', [AdminController::class, 'getConcertTicket']);
         Route::put('/admin/concert_tickets/{id}', [AdminController::class, 'updateConcertTicket']);
         Route::delete('/admin/concert_tickets/{id}', [AdminController::class, 'deleteConcertTicket']);
+
+        // CRUD SONGS
+        Route::post('/admin/songs', [AdminController::class, 'createSong']);
+        Route::delete('/admin/songs/{id}', [AdminController::class, 'deleteSong']);
+        Route::get('/admin/songs', [AdminController::class, 'getAllSongs']);
+        Route::put('/admin/songs/{id}', [AdminController::class, 'updateSong']);
 // admin routes
 });
 
