@@ -1,5 +1,6 @@
 ## -- RECOMMENDED BROWSER --
-FIREFOX / BRAVE / EDGE (CHROME GOT PROBLEM WHEN DOING MIDTRANS TRANSACTION)
+<p>FIREFOX / BRAVE / EDGE</p>
+<p>note: Chrome Got Problem when doing Midtrans Transactions.</p>
 
 ## Initial Setup to Launch the App
 
