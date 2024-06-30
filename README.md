@@ -1,3 +1,6 @@
+## -- RECOMMENDED BROWSER --
+FIREFOX / BRAVE / EDGE (CHROME GOT PROBLEM WHEN DOING MIDTRANS TRANSACTION)
+
 ## Initial Setup to Launch the App
 
 1. **Clone the Project**: Start by cloning the project from your friend's GitHub repository to your local machine.
