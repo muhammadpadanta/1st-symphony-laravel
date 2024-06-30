@@ -2,6 +2,13 @@
 <p>FIREFOX / BRAVE / EDGE</p>
 <p>note: Chrome Got Problem when doing Midtrans Transactions.</p>
 
+## Known issue
+- Phone number cant exceed 10 Integer.
+- When Press "add to cart" button, sometimes Midtrans API return error.
+- When Midtrans Payment Is success, sometimes the Purchase Status Didn't change to "success".
+- Sometimes Midtrans Snap Window Wont Appear.
+
+
 ## Initial Setup to Launch the App
 
 1. **Clone the Project**: Start by cloning the project from your friend's GitHub repository to your local machine.
